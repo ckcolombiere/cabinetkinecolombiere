@@ -5,41 +5,44 @@
 
 // /js/main.js
 
-// Mobile nav (classe CSS plutôt qu'un style inline)
-const toggle = document.querySelector('.nav-toggle');
-const nav = document.getElementById('nav');
+// Mobile nav — init après chargement du DOM (évite "menu ouvert" sur mobile)
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('nav');
 
-if (toggle && nav){
+  // Sécurité : si le HTML diffère sur une page, on ne casse rien
+  if (!toggle || !nav) return;
+
   const closeMenu = () => {
     toggle.setAttribute('aria-expanded', 'false');
     nav.classList.remove('is-open');
   };
+
   const openMenu = () => {
     toggle.setAttribute('aria-expanded', 'true');
     nav.classList.add('is-open');
   };
 
-  // Toujours fermé au chargement (évite "menu déroulé" sur mobile)
+  // Forcer l'état fermé au chargement (corrige ton symptôme)
   closeMenu();
 
-  // Fermer quand on clique sur un lien du menu (mobile UX)
-  nav.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', closeMenu);
+  toggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeMenu() : openMenu();
   });
 
-  // Fermer si clic en dehors du menu (mobile UX)
+  // Fermer après clic sur un lien
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // Fermer si clic en dehors
   document.addEventListener('click', (e) => {
     if (!nav.classList.contains('is-open')) return;
     if (nav.contains(e.target) || toggle.contains(e.target)) return;
     closeMenu();
   });
 
-  toggle.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') === 'true';
-    open ? closeMenu() : openMenu();
-  });
-
-  // Fermer au resize > 720px (menu desktop visible)
+  // Fermer au resize > 720px (retour desktop)
   window.addEventListener('resize', () => {
     if (window.innerWidth >= 720) closeMenu();
   });
@@ -48,7 +51,7 @@ if (toggle && nav){
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
   });
-}
+})
 
 // Fake submit (démo front). Remplacez par un endpoint réel (Formspree/Netlify Forms) ou votre backend.
 window.fakeSubmit = (e) => {
