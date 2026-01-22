@@ -916,6 +916,16 @@ html{
   color: #fff; /* le SVG suit currentColor */
 }
 
+/* =========================
+   Fix menu mobile (force fermé)
+   ========================= */
+@media (max-width: 719px){
+  /* Menu caché par défaut, quoi qu'il arrive */
+  #nav.site-nav{ display:none !important; }
+
+  /* Menu visible uniquement quand ouvert */
+  #nav.site-nav.is-open{ display:block !important; }
+}
 /* =========================================
    FIN
    ========================================= */
