@@ -917,6 +917,17 @@ html{
 }
 
 /* =========================
+   Carrousel – effet hover images
+   ========================= */
+.carousel-img {
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.carousel-img:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+}
+/* =========================
    Fix menu mobile (force fermé)
    ========================= */
 @media (max-width: 719px){
