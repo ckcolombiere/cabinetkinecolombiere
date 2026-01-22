@@ -19,6 +19,21 @@ if (toggle && nav){
     nav.classList.add('is-open');
   };
 
+  // Toujours fermé au chargement (évite "menu déroulé" sur mobile)
+  closeMenu();
+
+  // Fermer quand on clique sur un lien du menu (mobile UX)
+  nav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', closeMenu);
+  });
+
+  // Fermer si clic en dehors du menu (mobile UX)
+  document.addEventListener('click', (e) => {
+    if (!nav.classList.contains('is-open')) return;
+    if (nav.contains(e.target) || toggle.contains(e.target)) return;
+    closeMenu();
+  });
+
   toggle.addEventListener('click', () => {
     const open = toggle.getAttribute('aria-expanded') === 'true';
     open ? closeMenu() : openMenu();
