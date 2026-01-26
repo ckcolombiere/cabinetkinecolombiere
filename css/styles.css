@@ -596,6 +596,50 @@ img{ max-width:100%; height:auto; display:block }
   background: var(--brand); /* vert/bleu du logo */
 }
 
+/* =========================================
+   Carrousel — points en overlay (supprime la "barre blanche")
+   ========================================= */
+
+/* Le conteneur qui englobe image + dots devient la référence */
+.bandeau-image{
+  position: relative;
+}
+
+/* Les dots ne prennent plus de place sous le carrousel : ils se superposent */
+.carousel-dots{
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 5;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+/* Reset total des boutons (évite styles natifs blancs) */
+.carousel-dots button{
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.55); /* visible sur l'image */
+  box-shadow: 0 1px 3px rgba(0,0,0,.25);
+  cursor: pointer;
+}
+
+/* Point actif */
+.carousel-dots button.is-active{
+  background: var(--accent);
+  box-shadow: 0 1px 3px rgba(0,0,0,.25);
+}
+
 /* =========================
    Carrousel – Flèches
    ========================= */
@@ -916,17 +960,51 @@ html{
   color: #fff; /* le SVG suit currentColor */
 }
 
-/* =========================
-   Carrousel – effet hover images
-   ========================= */
-.carousel-img {
-  transition: transform .3s ease, box-shadow .3s ease;
+/* =========================================
+   Carrousel — hover cohérent (sur le cadre réel)
+   ========================================= */
+
+/* Le cadre (bandeau-image) bouge et porte l'ombre */
+@media (hover:hover) and (pointer:fine){
+  .bandeau-image:has(.carousel-track){
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .bandeau-image:has(.carousel-track):hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  }
 }
 
-.carousel-img:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+/* L'image ne doit JAMAIS bouger/ajouter d'ombre (sinon effet bizarre) */
+.bandeau-image .carousel-track img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:none !important;
+  box-shadow:none !important;
 }
+
+/* Le slide ne doit pas ajouter sa propre ombre (on la met sur le cadre) */
+.carousel-slide{
+  box-shadow:none !important;
+}
+
+/* 3) Point actif */
+.carousel-dots button.is-active{
+  background: var(--accent) !important;
+}
+
+/* 4) Centrage propre, sans "barre" de fond */
+.carousel-dots{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 0 !important;
+  margin: 10px 0 0 !important;
+}
+
 /* =========================
    Fix menu mobile (force fermé)
    ========================= */
