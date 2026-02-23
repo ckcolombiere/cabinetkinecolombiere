@@ -268,7 +268,7 @@ img{ max-width:100%; height:auto; display:block }
 
 /* Badges & listes */
 .services .badge{ background:#10B981; color:#052E2B; border-radius:999px; padding:2px 10px; font-size:.9rem }
-.services .badge-neutral{ background:#e2e8f0; color:#0f172a }
+.services .badge-neutral{ background:#3D7894; color:#fff }
 .checklist{ padding-left:1.1em }
 .checklist li{ margin:.4em 0 }
 
