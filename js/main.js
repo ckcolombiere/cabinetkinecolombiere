@@ -155,3 +155,26 @@ if (track && slides.length > 1) {
   updateCarousel();
   startAuto();
 }
+
+// =========================
+// Déroulé des formations — page équipe
+// =========================
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleButtons = document.querySelectorAll('.formations-toggle');
+
+  toggleButtons.forEach((button) => {
+    const targetId = button.getAttribute('aria-controls');
+    const list = targetId ? document.getElementById(targetId) : null;
+    const label = button.querySelector('.formations-toggle-label');
+
+    if (!list || !label) return;
+
+    button.addEventListener('click', () => {
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+      button.setAttribute('aria-expanded', String(!isExpanded));
+      list.hidden = isExpanded;
+      label.textContent = isExpanded ? 'Voir les formations' : 'Masquer les formations';
+    });
+  });
+});

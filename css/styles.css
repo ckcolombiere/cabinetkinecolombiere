@@ -1015,6 +1015,92 @@ html{
   /* Menu visible uniquement quand ouvert */
   #nav.site-nav.is-open{ display:block !important; }
 }
+
+/* =========================================
+   Équipe — spécialités visibles + déroulé des formations
+   ========================================= */
+
+.team-grid .team-card{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.team-card h3{
+  margin-bottom: 0.35rem;
+}
+
+.team-card .role{
+  color: var(--muted);
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+}
+
+.team-specialties{
+  margin: 0 0 1rem;
+  min-height: 3.2rem; /* évite trop de décalages visuels entre cartes */
+}
+
+.team-specialties:empty{
+  min-height: 0;
+  margin: 0 0 1rem;
+}
+
+.team-specialties p{
+  margin: 0.2rem 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.formations-toggle{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--brand);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.formations-toggle:hover{
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.formations-toggle::after{
+  content: "▾";
+  font-size: 0.9rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.formations-toggle[aria-expanded="true"]::after{
+  transform: rotate(180deg);
+}
+
+.formations-list{
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.formations-list li{
+  margin-bottom: 0.45rem;
+  line-height: 1.5;
+}
+
+.formations-list[hidden]{
+  display: none;
+}
 /* =========================================
    FIN
    ========================================= */
